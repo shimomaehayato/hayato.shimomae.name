@@ -10,6 +10,7 @@ header h1 {
   font-size: 3rem;
   font-weight: bold;
   margin: 0 0 .25em;
+  overflow-wrap: break-word;
   padding: 0;
   text-align: center;
 }
@@ -28,6 +29,13 @@ header .description {
   line-height: 1.5;
   margin: 0 auto;
   width: 80%;
+}
+
+@media screen and (max-width: 500px) {
+  header .description {
+    margin: 0 1em;
+    width: auto;
+  }
 }
 
 header nav ul {
@@ -56,7 +64,8 @@ header nav li {
 }
 
 header nav li + li::before {
+  color: var(--header-hover-text-color);
   content: "/";
   display: block;
-  margin: 0 .5em;
+  margin: 0 .25em;
 }

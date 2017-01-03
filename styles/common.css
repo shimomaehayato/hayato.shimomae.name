@@ -2,14 +2,22 @@ html, body {
   margin: 0;
 }
 
-:lang(ja) :lang(en) {
-  margin: 0 .2em;
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+p {
+  line-height: 1.5;
   margin: 0;
 }
 
 dfn {
   font-style: inherit;
+}
+
+p:lang(ja) > :lang(en):not(:only-child),
+li:lang(ja) > :lang(en):not(:only-child),
+dt:lang(ja) > :lang(en):not(:only-child),
+dd:lang(ja) > :lang(en):not(:only-child) {
+  margin: 0 .2em;
 }
