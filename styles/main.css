@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+@import "./common.css";
+@import "./variables.css";
+@import "./header.css";
+
+html {
+  color: var(--main-text-color);
+  line-height: 1;
+}
