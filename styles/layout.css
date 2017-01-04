@@ -1,17 +1,22 @@
 @charset "UTF-8";
 
 html {
+  background-color: var(--main-background-color);
   color: var(--main-text-color);
   font-family: -apple-system, BlinkMacSystemFont, "Helvetiva Neue", YuGothic, "Yu Gothic", Meiryo, sans-serif;
 }
 
 section {
-  padding: 1rem .5rem;
+  padding: 2rem .5rem;
+}
+
+section:last-child {
+  padding-bottom: 5rem;
 }
 
 h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
@@ -35,6 +40,6 @@ dl {
   width: 100%;
 }
 
-dl div:not(:first-child) {
+dl > div:not(:first-child) {
   margin-top: 1.5rem;
 }
