@@ -3,9 +3,4 @@
 @import "./common.css";
 @import "./variables.css";
 @import "./header.css";
-
-html {
-  color: var(--main-text-color);
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetiva Neue", YuGothic, "Yu Gothic", Meiryo, sans-serif;
-  line-height: 1;
-}
+@import "./layout.css";

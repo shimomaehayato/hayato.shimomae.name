@@ -1,5 +1,11 @@
+@charset "UTF-8";
+
 html, body {
   margin: 0;
+}
+
+html {
+  line-height: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -9,6 +15,19 @@ h1, h2, h3, h4, h5, h6 {
 p {
   line-height: 1.5;
   margin: 0;
+}
+
+dl {
+  margin: .25rem 0;
+}
+
+dt {
+  font-weight: bold;
+  margin: 0 0 .25rem 0;
+}
+
+dd {
+  margin: 0 0 .5rem 1.5rem;
 }
 
 dfn {
