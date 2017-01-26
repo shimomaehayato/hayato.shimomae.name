@@ -6,6 +6,9 @@
     "babel-core": "^6.22.1",
     "babel-preset-env": "^1.1.8",
     "cssnano": "^3.10.0",
+    "eslint": "^3.14.1",
+    "eslint-config-airbnb-base": "^11.0.1",
+    "eslint-plugin-import": "^2.2.0",
     "html-minifier": "^3.3.0",
     "jsdom": "^9.9.1",
     "mkdirp": "^0.5.1",
@@ -15,7 +18,8 @@
     "postcss-load-config": "^1.1.0"
   },
   "scripts": {
-    "build": "babel-node ./scripts/build.js"
+    "build": "babel-node ./scripts/build.js",
+    "lint": "eslint ."
   },
   "license": "MIT",
   "name": "hayato.shimomae.name",

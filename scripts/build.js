@@ -1,5 +1,3 @@
-'use strict';
-
 import { readFile, writeFile } from 'fs';
 import { minify } from 'html-minifier';
 import jsdom from 'jsdom';
@@ -7,19 +5,16 @@ import mkdirp from 'mkdirp';
 import path from 'path';
 import postcss from 'postcss';
 import postcssrc from 'postcss-load-config';
-import { cwd } from 'process';
 
 function mkdir(dir) {
   return new Promise((resolve, reject) => {
-    mkdirp(dir, (error) =>
-      error instanceof Error ? reject(error) : resolve());
+    mkdirp(dir, error => (error instanceof Error ? reject(error) : resolve()));
   });
 }
 
 function read(file) {
   return new Promise((resolve, reject) => {
-    readFile(file, (error, data) =>
-      error instanceof Error ? reject(error) : resolve(data));
+    readFile(file, (error, data) => (error instanceof Error ? reject(error) : resolve(data)));
   });
 }
 
@@ -27,10 +22,8 @@ function write(file, data) {
   return new Promise((resolve, reject) => {
     const dir = path.dirname(file);
     mkdir(dir)
-      .then(() => {
-        writeFile(file, data, (error) =>
-          error instanceof Error ? reject(error) : resolve());
-      })
+      .then(() =>
+        writeFile(file, data, error => (error instanceof Error ? reject(error) : resolve())))
       .catch(reject);
   });
 }
@@ -38,7 +31,7 @@ function write(file, data) {
 function parse(...args) {
   return new Promise((resolve, reject) => {
     jsdom.env(...args, (error, window) =>
-      error instanceof Error ? reject(error) : resolve(window));
+      (error instanceof Error ? reject(error) : resolve(window)));
   });
 }
 
@@ -56,7 +49,17 @@ function generateCanonical({ document }) {
 function generateBoilerplate({ document }) {
   const style = document.createElement('style');
   style.setAttribute('amp-boilerplate', '');
-  style.textContent = 'body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}';
+  style.textContent = [
+    'body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;',
+    '-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;',
+    '-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;',
+    'animation:-amp-start 8s steps(1,end) 0s 1 normal both}',
+    '@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}',
+    '@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}',
+    '@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}',
+    '@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}',
+    '@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}',
+  ].join('');
   return Promise.resolve(style);
 }
 
@@ -99,13 +102,13 @@ async function generateHead(window) {
   const title = document.createElement('title');
   title.textContent = document.title;
   head.appendChild(title);
-  for (const jsonLd of document.querySelectorAll('[type="application/ld+json"]')) {
+  [...document.querySelectorAll('[type="application/ld+json"]')].forEach((jsonLd) => {
     const schema = JSON.parse(jsonLd.textContent);
     const script = document.createElement('script');
     script.setAttribute('type', 'application/ld+json');
     script.textContent = JSON.stringify(schema);
     head.appendChild(script);
-  }
+  });
   const boilerplate = await generateBoilerplate(window);
   const boilerplateForNoScript = await generateBoilerplateForNoScript(window);
   head.appendChild(boilerplate);
@@ -126,23 +129,21 @@ async function generateHead(window) {
 
 function generateBody({ document }) {
   const body = document.body.cloneNode(true);
-  for (const script of body.getElementsByTagName('script')) {
-    script.remove();
-  }
+  [...body.getElementsByTagName('script')].forEach(script => script.remove());
   const ampAnalytics = document.createElement('amp-analytics');
   ampAnalytics.setAttribute('type', 'googleanalytics');
   const script = document.createElement('script');
   script.setAttribute('type', 'application/json');
   script.textContent = JSON.stringify({
     vars: {
-      account: 'UA-89846829-2'
+      account: 'UA-89846829-2',
     },
     triggers: {
       trackPageview: {
         on: 'visible',
-        request: 'pageview'
-      }
-    }
+        request: 'pageview',
+      },
+    },
   });
   ampAnalytics.appendChild(script);
   body.appendChild(ampAnalytics);
@@ -185,4 +186,5 @@ async function main() {
   await write(output, html);
 }
 
+// eslint-disable-next-line no-console
 main().catch(console.error.bind(console));
