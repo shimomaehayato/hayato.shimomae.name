@@ -1,0 +1,24 @@
+{
+  "author": "Shimomae Hayato <hayato@shimomae.name>",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-preset-env": "^1.1.8",
+    "cssnano": "^3.10.0",
+    "html-minifier": "^3.3.0",
+    "jsdom": "^9.9.1",
+    "mkdirp": "^0.5.1",
+    "postcss": "^5.2.11",
+    "postcss-custom-properties": "^5.0.1",
+    "postcss-import": "^9.1.0",
+    "postcss-load-config": "^1.1.0"
+  },
+  "scripts": {
+    "build": "babel-node ./scripts/build.js"
+  },
+  "license": "MIT",
+  "name": "hayato.shimomae.name",
+  "private": true,
+  "version": "1.0.0"
+}
