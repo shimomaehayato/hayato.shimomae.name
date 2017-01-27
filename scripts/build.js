@@ -181,7 +181,7 @@ async function main() {
     removeScriptTypeAttributes: true,
     sortAttributes: true,
     sortClassName: true,
-  }).replace(/(amp(?:-[^=]+)?)=""/, (_, name) => name);
+  }).replace(/(amp(?:-[^=]+)?)=""/g, (_, name) => name);
   const output = path.join(__dirname, '..', 'amp', 'index.html');
   await write(output, html);
 }
